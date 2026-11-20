@@ -5,6 +5,8 @@ A regression project on the Kaggle competition
 predict the sale price of houses in Ames, Iowa from 79 explanatory variables. Includes data exploration,
 preprocessing, a cross-validated comparison of six regressors, and an interactive **Streamlit** demo.
 
+**🔗 Live demo:** https://house-prices---advanced-regression-techniques-kpscjxhpxbebnh2q.streamlit.app/
+
 ## 🚀 Features
 
 - **EDA notebook:** target distribution (log scale), missing-value analysis, duplicates check.
@@ -68,7 +70,9 @@ pip install -r requirements.txt
 
 ## ▶️ Run
 
-Streamlit demo (opens http://localhost:8501; trains the model in a few seconds on first load):
+Live demo: https://house-prices---advanced-regression-techniques-kpscjxhpxbebnh2q.streamlit.app/
+
+Run the Streamlit demo locally (opens http://localhost:8501; trains the model in a few seconds on first load):
 
 ```bash
 streamlit run app.py
