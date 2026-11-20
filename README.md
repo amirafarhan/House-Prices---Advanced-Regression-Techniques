@@ -1,116 +1,87 @@
-🏠 House Prices – Advanced Regression Techniques
+# 🏠 House Prices — Advanced Regression Techniques
 
-A complete end-to-end Machine Learning regression project based on the famous Kaggle competition:
-House Prices: Advanced Regression Techniques
+A regression project on the Kaggle competition
+[House Prices: Advanced Regression Techniques](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques/data):
+predict the sale price of houses in Ames, Iowa from 79 explanatory variables. Includes data exploration,
+preprocessing, a cross-validated comparison of six regressors, and an interactive **Streamlit** demo.
 
-This project focuses on building a strong predictive model to estimate house sale prices using advanced feature engineering, data preprocessing, and machine learning algorithms.
+## 🚀 Features
 
-📌 Project Overview
+- **EDA notebook:** target distribution (log scale), missing-value analysis, duplicates check.
+- **Preprocessing (from the notebook):**
+  - drop columns with more than 15% missing values;
+  - fill numeric gaps with the mean, or the median when the two differ by 40 or more;
+  - fill categorical gaps with the most frequent value.
+- **Modelling (`house_prices.py`):**
+  - the same preprocessing as a scikit-learn transformer, fitted on training folds only;
+  - one-hot encoding and standard scaling;
+  - target trained on log(price);
+  - 5-fold cross-validated comparison of the six regressors imported in the notebook.
+- **Streamlit app:**
+  - predict a price by editing the most influential features of a typical house or of any house in the dataset;
+  - input validation and a training-range warning;
+  - a "what if the living area changed" chart;
+  - model comparison and feature importance;
+  - market charts: price distribution, price by neighborhood, price vs. living area.
 
-Real estate price prediction is a classic problem in data science.
-The goal of this project is to predict the final sale price of houses in Ames, Iowa based on 70+ explanatory variables.
+## 📊 Results
 
-This project demonstrates a full machine learning pipeline including:
+5-fold cross-validation, `KFold(shuffle=True, random_state=42)`, on the 1,460 training houses:
 
-Data cleaning and missing value handling
-Exploratory Data Analysis (EDA)
-Feature engineering
-Encoding categorical variables
-Model training and evaluation
-Hyperparameter tuning
-🧠 Problem Statement
+| Model | RMSE of log price | MAE |
+|---|---|---|
+| **XGBoost** | **0.1254 ± 0.0193** | **$14,853** |
+| Lasso | 0.1397 ± 0.0416 | $16,376 |
+| ElasticNet | 0.1403 ± 0.0402 | $16,489 |
+| SVR | 0.1437 ± 0.0143 | $17,018 |
+| Ridge | 0.1447 ± 0.0377 | $17,478 |
+| Random Forest | 0.1448 ± 0.0202 | $17,682 |
 
-Given a dataset of residential homes with multiple features, predict:
+The app uses the best model, XGBoost. Re-run `python house_prices.py` to regenerate `models/metrics.json`.
 
-🎯 SalePrice (target variable)
+## 🛠️ Tech Stack
 
-This is a supervised regression problem where the model learns relationships between house features and their market value.
+Python · pandas · NumPy · scikit-learn · XGBoost · Matplotlib · Seaborn · Altair · Streamlit · Jupyter
 
-📊 Dataset Description
+## 📂 Project Structure
 
-The dataset includes:
-
-🏗️ Building features (YearBuilt, HouseStyle, etc.)
-📐 Area features (GrLivArea, LotArea, etc.)
-🛏️ Room features (Bedrooms, Kitchen quality, etc.)
-📍 Location features (Neighborhood, Condition, etc.)
-❗ Missing values in multiple columns (handled in preprocessing)
-
-Source: Kaggle Competition Dataset
-
-🧠 Key Concepts Covered
-Data preprocessing & cleaning
-Handling missing values
-Label encoding & One-Hot encoding
-Feature engineering
-Outlier detection
-Correlation analysis
-Log transformation of target variable
-Model evaluation metrics (RMSE)
-🤖 Machine Learning Models Used
-
-This project experiments with multiple regression models such as:
-
-Linear Regression
-Ridge / Lasso Regression
-Decision Tree Regressor
-Random Forest Regressor
-Gradient Boosting
-XGBoost / LightGBM (if included in notebook)
-Ensemble methods (Stacking / Voting)
-⚙️ Technologies Used
-Python 🐍
-Pandas
-NumPy
-Scikit-learn
-Matplotlib
-Seaborn
-Jupyter Notebook
-📂 Project Structure
+```
 House-Prices---Advanced-Regression-Techniques/
-│
-├── clofornia houses.ipynb   # Main notebook (Kaggle workflow)
-├── data/                    # Dataset files (train/test)
-├── models/                  # Saved models (optional)
-├── submissions/             # Kaggle predictions
-└── README.md
-🚀 How to Run
-1. Clone the repository
+├── House Prices - Advanced Regression Techniques.csv     # Kaggle train.csv (1,460 houses)
+├── House Prices - Advanced Regression Techniques.ipynb   # EDA + preprocessing notebook
+├── house_prices.py      # Preprocessing transformer, pipelines, model comparison
+├── models/metrics.json  # Cross-validation results
+├── app.py               # Streamlit demo
+├── requirements.txt
+└── .streamlit/config.toml
+```
+
+## 📦 Installation
+
+```bash
 git clone https://github.com/amirafarhan/House-Prices---Advanced-Regression-Techniques.git
-2. Install dependencies
-pip install numpy pandas matplotlib seaborn scikit-learn
-3. Run Jupyter Notebook
-jupyter notebook
-4. Open the project file
-clofornia houses.ipynb
-📈 Results
+cd House-Prices---Advanced-Regression-Techniques
+python -m venv venv
+# Windows: venv\Scripts\activate    Linux/Mac: source venv/bin/activate
+pip install -r requirements.txt
+```
 
-The trained models successfully learn patterns between house attributes and pricing.
+## ▶️ Run
 
-Key outcomes include:
+Streamlit demo (opens http://localhost:8501; trains the model in a few seconds on first load):
 
-Strong predictive performance after feature engineering
-Improved accuracy using ensemble models
-Reduced error through data transformation and tuning
-🔮 Future Improvements
-Implement advanced boosting models (XGBoost / LightGBM tuning)
-Add automated feature selection
-Deploy model using Streamlit or Flask
-Create interactive dashboard for price prediction
-Apply cross-validation and stacking optimization
-💡 Key Takeaway
+```bash
+streamlit run app.py
+```
 
-This project demonstrates that feature engineering + proper preprocessing often matters more than the model itself in structured data problems.
+Re-run the model comparison (about 40 seconds):
 
-👨‍💻 Author
+```bash
+python house_prices.py
+```
 
-Amira Farhan
-Machine Learning & Computer Vision Engineer
+Notebook: run `pip install jupyter matplotlib seaborn`, then `jupyter notebook`.
 
-⭐ Support
+## 👩‍💻 Author
 
-If you like this project:
-
-⭐ Star the repository
-🍴 Fork it
-🚀 Share it
+Amira Farhan — Machine Learning & Computer Vision Engineer
